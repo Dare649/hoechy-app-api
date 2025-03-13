@@ -20,7 +20,7 @@ export class VehicleMovementRegisterController {
 
 
     @Post('create_vehicle_movement_register_form')
-    @Roles(Role.DRIVER)
+    @Roles(Role.ADMIN, Role.DRIVER)
     @ApiOperation({
         summary: 'This api creates vehicle movement register form'
     })
@@ -37,7 +37,7 @@ export class VehicleMovementRegisterController {
 
 
     @Put('update_vehicle_movement_register_form/:id')
-    @Roles(Role.DRIVER)
+    @Roles(Role.ADMIN, Role.DRIVER)
     @ApiOperation({
         summary: 'This api updates the vehicle movement register form'
     })
@@ -72,7 +72,7 @@ export class VehicleMovementRegisterController {
 
 
     @Get('get_all_vehicle_movement_register_form')
-    @Roles(Role.ADMIN)
+    @Roles(Role.ADMIN, Role.DRIVER)
     @ApiOperation({
         summary: 'This api gets a the vehicle movement form'
     })
@@ -87,7 +87,7 @@ export class VehicleMovementRegisterController {
 
 
     @Delete('delete_vehicle_movement_register_form/:id')
-    @Roles(Role.ADMIN)
+    @Roles(Role.ADMIN, Role.DRIVER)
     @ApiOperation({
         summary: 'This api allows drivers to delete form.'
     })

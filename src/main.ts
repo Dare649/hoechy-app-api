@@ -6,12 +6,20 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Swagger configuration with Bearer Auth
+  // Swagger configuration with Bearer Authentication globally
   const config = new DocumentBuilder()
-    .setTitle('API Documentation')
+    .setTitle('Hoechy API Documentation')
     .setDescription('API endpoints for Hoechy App')
     .setVersion('1.0')
-    .addBearerAuth() // 👈 Enables Bearer Token authentication
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+      'access-token', // 👈 Defines "default" security scheme name
+    )
+    .addSecurityRequirements('access-token') // 👈 Applies Bearer Auth globally
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

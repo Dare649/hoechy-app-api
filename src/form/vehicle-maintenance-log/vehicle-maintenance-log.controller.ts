@@ -20,7 +20,7 @@ export class VehicleMaintenanceLogController {
 
 
     @Post('create_vehicle_maintenance_log_form')
-    @Roles(Role.DRIVER)
+    @Roles(Role.ADMIN, Role.DRIVER)
     @ApiOperation({
         summary: 'This api creates vehicle maintenance log form'
     })
@@ -36,7 +36,7 @@ export class VehicleMaintenanceLogController {
 
 
     @Put('update_vehicle_maintenance_log_form/:id')
-    @Roles(Role.DRIVER)
+    @Roles(Role.ADMIN, Role.DRIVER)
     @ApiOperation({
         summary: 'This api updates the vehicle maintenance log form'
     })
@@ -71,7 +71,7 @@ export class VehicleMaintenanceLogController {
 
 
     @Get('get_all_vehicle_maintenance_log_form')
-    @Roles(Role.ADMIN)
+    @Roles(Role.ADMIN, Role.DRIVER)
     @ApiOperation({
         summary: 'This api gets a the vehicle maintenace log form'
     })
@@ -85,7 +85,7 @@ export class VehicleMaintenanceLogController {
 
 
     @Delete('delete_vehicle_maintenance_log_form/:id')
-    @Roles(Role.ADMIN)
+    @Roles(Role.ADMIN, Role.DRIVER)
     @ApiOperation({
         summary: 'This api allows drivers to delete form.'
     })
