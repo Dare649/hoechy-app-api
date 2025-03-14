@@ -8,13 +8,14 @@ async function bootstrap() {
 
 
   app.enableCors({
-    origin: process.env.NODE_ENV === 'production' 
-      ? ['https://hoechy-app-api.onrender.com'] // Allow only your production frontend
-      : '*', // Allow all origins in development
+    origin: process.env.NODE_ENV === 'production'
+      ? 'https://hoechy-app-api.onrender.com' // Replace with your frontend URL
+      : 'http://localhost:3000', // Allow frontend during development
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    allowedHeaders: 'Content-Type, Authorization',
-    credentials: true, // Allow cookies/auth headers
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true, // Allow sending cookies & auth headers
   });
+  
   
 
   // Swagger configuration with Bearer Authentication globally
