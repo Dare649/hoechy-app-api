@@ -7,13 +7,15 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
 
-  // Enable CORS
   app.enableCors({
-    origin: ['*', 'https://hoechy-app-api.onrender.com'], // Allowed origins
+    origin: process.env.NODE_ENV === 'production' 
+      ? ['https://hoechy-app-api.onrender.com'] // Allow only your production frontend
+      : '*', // Allow all origins in development
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: 'Content-Type, Authorization',
-    credentials: true, // Allow cookies or authentication headers
+    credentials: true, // Allow cookies/auth headers
   });
+  
 
   // Swagger configuration with Bearer Authentication globally
   const config = new DocumentBuilder()
