@@ -6,6 +6,15 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+
+  // Enable CORS
+  app.enableCors({
+    origin: ['*', 'https://hoechy-app-api.onrender.com'], // Allowed origins
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type, Authorization',
+    credentials: true, // Allow cookies or authentication headers
+  });
+
   // Swagger configuration with Bearer Authentication globally
   const config = new DocumentBuilder()
     .setTitle('Hoechy API Documentation')
