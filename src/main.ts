@@ -6,19 +6,18 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-
+  // Ensure CORS matches frontend
   app.enableCors({
-    origin: process.env.NODE_ENV === 'production'
-      ? 'https://hoechy-app-api.onrender.com' // Replace with your frontend URL
-      : 'http://localhost:3000', // Allow frontend during development
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    origin: [
+      'http://localhost:3000', // Dev environment
+      'https://your-nextjs-app.com', // Production frontend
+    ],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true, // Allow sending cookies & auth headers
+    credentials: true, // Allow cookies and authentication headers
   });
-  
-  
 
-  // Swagger configuration with Bearer Authentication globally
+  // Swagger Documentation
   const config = new DocumentBuilder()
     .setTitle('Hoechy API Documentation')
     .setDescription('API endpoints for Hoechy App')
@@ -29,9 +28,9 @@ async function bootstrap() {
         scheme: 'bearer',
         bearerFormat: 'JWT',
       },
-      'access-token', // 👈 Defines "default" security scheme name
+      'access-token',
     )
-    .addSecurityRequirements('access-token') // 👈 Applies Bearer Auth globally
+    .addSecurityRequirements('access-token')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
