@@ -1,4 +1,4 @@
-import { Controller, Post, UseGuards, Body, BadRequestException, Put, Get, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Req, UseGuards, Body, BadRequestException, Put, Get, Param, Delete } from '@nestjs/common';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { RoleGuard } from 'src/guards/roles.guard';
 import { Role } from 'src/enum/roles.enum';
@@ -66,16 +66,16 @@ export class VehicleMaintenanceReqFormController {
     }
 
 
-    @Get('get_all_vehicle_maintenance_req_form')
+   @Get('get_all_vehicle_maintenance_req_form')
     @Roles(Role.ADMIN, Role.DRIVER)
     @ApiOperation({
-        summary: 'This api gets a the vehicle maintenace log form'
+        summary: 'This API retrieves vehicle maintenance log forms based on user roles'
     })
-    async get_vehicle_maintenance_req() {
+    async get_vehicle_maintenance_log(@Req() req: any) {
         try {
-            return this.veh_main_req.get_vehicle_maintenance_request();
+            return this.veh_main_req.get_vehicle_maintenance_request(req.user);
         } catch (error) {
-            throw new BadRequestException(`Error retrieving form: ${error.message}`);
+            throw new BadRequestException(`Error retrieving forms: ${error.message}`);
         }
     }
 

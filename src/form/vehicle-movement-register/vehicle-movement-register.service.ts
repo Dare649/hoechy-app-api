@@ -3,6 +3,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { VehMovementRegDto } from 'src/dto/forms/vehicle-movement-reg.dto';
 import { VehMoveReg, VehMoveRegDocument } from 'src/schema/forms/vehicle-movement-register.schema';
+import { Roles } from 'src/decorators/roles.decorator';
+import { Role } from 'src/enum/roles.enum';
 
 @Injectable()
 export class VehicleMovementRegisterService {
@@ -118,18 +120,28 @@ export class VehicleMovementRegisterService {
 
 
     // get all forms
-    async get_vehicle_movement_register() {
+    async get_vehicle_movement_register(user: any) {
         try {
-            const veh_move_reg = await this.veh_move_reg_model.find().exec();
-
+            let veh_move_reg: any;
+    
+            if (user.role === Role.ADMIN) {
+                // Admin can fetch all records
+                veh_move_reg = await this.veh_move_reg_model.find().exec();
+            } else if (user.role === Role.DRIVER) {
+                // Driver can only fetch their own records
+                veh_move_reg = await this.veh_move_reg_model.find({ performed_by: user.id }).exec();
+            } else {
+                throw new BadRequestException('Unauthorized access');
+            }
+    
             return {
                 success: true,
-                message: 'Form retrieved successfully!',
+                message: 'Forms retrieved successfully!',
                 data: veh_move_reg
-            }
+            };
         } catch (error) {
-            this.logger.error(`Error retrieving form: ${error.messgae}`);
-            throw new BadRequestException('An error occured while retrieving form');
+            this.logger.error(`Error retrieving forms: ${error.message}`);
+            throw new BadRequestException('An error occurred while retrieving forms');
         }
     }
 

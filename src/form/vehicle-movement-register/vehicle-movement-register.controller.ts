@@ -1,4 +1,4 @@
-import { Controller, BadRequestException, Body, Delete, Post, Put, Get, UseGuards, Param } from '@nestjs/common';
+import { Controller, BadRequestException, Req, Body, Delete, Post, Put, Get, UseGuards, Param } from '@nestjs/common';
 import { ApiOperation, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { RoleGuard } from 'src/guards/roles.guard';
@@ -71,18 +71,19 @@ export class VehicleMovementRegisterController {
 
 
 
-    @Get('get_all_vehicle_movement_register_form')
+    @Get('get_vehicle_movement_register_form')
     @Roles(Role.ADMIN, Role.DRIVER)
     @ApiOperation({
-        summary: 'This api gets a the vehicle movement form'
+        summary: 'This API retrieves vehicle maintenance log forms based on user roles'
     })
-    async get_vehicle_movement_register() {
+    async get_vehicle_movement_register(@Req() req: any) {
         try {
-            return this.veh_move_reg.get_vehicle_movement_register();
+            return this.veh_move_reg.get_vehicle_movement_register(req.user);
         } catch (error) {
-            throw new BadRequestException(`Error retrieving form: ${error.message}`);
+            throw new BadRequestException(`Error retrieving forms: ${error.message}`);
         }
     }
+
 
 
 
