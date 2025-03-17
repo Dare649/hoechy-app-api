@@ -42,7 +42,7 @@ export class VehMovementRegDto {
     @ApiProperty({
         example: 122203
     })
-    @IsString()
+    @IsNumber()
     @IsNotEmpty()
     meter_start: number;
 
