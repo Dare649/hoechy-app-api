@@ -74,7 +74,7 @@ export class VehicleMovementRegisterController {
     @Get('get_vehicle_movement_register_form')
     @Roles(Role.ADMIN, Role.DRIVER)
     @ApiOperation({
-        summary: 'This API retrieves vehicle maintenance log forms based on user roles'
+        summary: 'This API retrieves vehicle movement register forms based on user roles'
     })
     async get_vehicle_movement_register(@Req() req: any) {
         try {

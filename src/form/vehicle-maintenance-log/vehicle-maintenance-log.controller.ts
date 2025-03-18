@@ -6,6 +6,7 @@ import { VehicleMaintenanceLogService } from './vehicle-maintenance-log.service'
 import { Roles } from 'src/decorators/roles.decorator';
 import { Role } from 'src/enum/roles.enum';
 import { VehMainDto } from 'src/dto/forms/vehicle-maintenance-log.dto';
+import { Types } from "mongoose";
 
 
 
@@ -70,14 +71,14 @@ export class VehicleMaintenanceLogController {
 
 
 
-    @Get('get_all_vehicle_maintenance_log_form')
+    @Get("get_vehicle_maintenance_log_form")
     @Roles(Role.ADMIN, Role.DRIVER)
     @ApiOperation({
-        summary: 'This API retrieves vehicle maintenance log forms based on user roles'
+        summary: "Retrieve vehicle maintenance log forms based on user roles",
     })
     async get_vehicle_maintenance_log(@Req() req: any) {
         try {
-            return this.veh_main_log.get_vehicle_maintenance_log(req.user);
+            return await this.veh_main_log.get_vehicle_maintenance_log(req.user);
         } catch (error) {
             throw new BadRequestException(`Error retrieving forms: ${error.message}`);
         }
