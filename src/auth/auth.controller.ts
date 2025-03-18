@@ -1,10 +1,12 @@
-import { Body, Controller, Get, Post, Req, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { ApiOperation, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { SignUpDto } from 'src/dto/sign-up.dto';
 import { SignInDto } from 'src/dto/sign-in.dto';
 import { VerifyOtpDto } from 'src/dto/verify-otp.dto';
 import { ResendOtpDto } from 'src/dto/resend-otp.dto';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 
 @ApiTags('Auth')
@@ -47,5 +49,15 @@ export class AuthController {
   async signIn(@Body() dto: SignInDto) {
     return this.authService.sign_in(dto);
   }
+
+  @UseGuards(AuthGuard)
+  @Get('signed_in_user')
+  @ApiOperation({
+    summary: 'This API returns the signed-in user',
+  })
+  async getLoggedInUser(@Req() req) {
+    return this.authService.getUserById(req.user._id);
+  }
+
 
 }

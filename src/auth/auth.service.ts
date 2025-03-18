@@ -215,5 +215,14 @@ import {
       };
     }
   
+
+    async getUserById(userId: string) {
+      const user = await this.userModel.findById(userId).select('-hash'); // Exclude password hash
+      if (!user) {
+        throw new UnauthorizedException('User not found.');
+      }
+      return user;
+    }
+        
    
-  }
+}
