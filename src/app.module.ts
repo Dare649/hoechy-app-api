@@ -7,6 +7,9 @@ import { UsersModule } from './users/users.module';
 import { VehicleMaintenanceLogModule } from './form/vehicle-maintenance-log/vehicle-maintenance-log.module';
 import { VehicleMaintenanceReqFormModule } from './form/vehicle-maintenance-req-form/vehicle-maintenance-req-form.module';
 import { VehicleMovementRegisterModule } from './form/vehicle-movement-register/vehicle-movement-register.module';
+import { MonthlyChecklistModule } from './form/monthly-checklist/monthly-checklist.module';
+import { DailyInspectionModule } from './form/daily-inspection/daily-inspection.module';
+import { EmployeeActivityReportModule } from './form/employee-activity-report/employee-activity-report.module';
 
 
 @Module({
@@ -26,6 +29,9 @@ import { VehicleMovementRegisterModule } from './form/vehicle-movement-register/
     VehicleMaintenanceLogModule,
     VehicleMaintenanceReqFormModule,
     VehicleMovementRegisterModule,
+    MonthlyChecklistModule,
+    DailyInspectionModule,
+    EmployeeActivityReportModule,
   ],
   controllers: [],
   providers: [],

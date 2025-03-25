@@ -69,17 +69,15 @@ export class VehicleMaintenanceLogService {
 
     async get_vehicle_maintenance_log(user: any) {
         try {
-            console.log("🔍 User ID from token:", user._id.toString()); // Convert ObjectId to string
-    
+           
             let logs: any;
             if (user.role === Role.ADMIN) {
                 logs = await this.vehmain_model.find().exec();
             } else if (user.role === Role.DRIVER) {
                 logs = await this.vehmain_model.find({
-                    performed_by_user: user._id.toString()  // Convert ObjectId to string
+                    performed_by_user: user._id.toString() 
                 }).exec();
     
-                console.log("🔍 Query Result:", logs); // Log query result
             } else {
                 throw new BadRequestException('Unauthorized access');
             }

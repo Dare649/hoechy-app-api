@@ -73,7 +73,7 @@ export class VehicleMaintenanceReqFormController {
     })
     async get_vehicle_maintenance_log(@Req() req: any) {
         try {
-            return this.veh_main_req.get_vehicle_maintenance_request(req.user);
+            return await this.veh_main_req.get_vehicle_maintenance_request(req.user);
         } catch (error) {
             throw new BadRequestException(`Error retrieving forms: ${error.message}`);
         }

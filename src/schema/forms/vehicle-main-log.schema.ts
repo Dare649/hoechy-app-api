@@ -10,10 +10,9 @@ export class VehMain {
     @Prop({ required: true })
     make: string;
 
-    @Prop({ required: true, type: Types.ObjectId, ref: 'User' }) // ✅ Properly reference MongoDB ObjectId
+    @Prop({ required: true, type: Types.ObjectId, ref: 'User' }) 
     performed_by_user: Types.ObjectId;
 
-    // Manually entered name of the person performing the service
     @Prop({ required: true })
     performed_by_name: string;
 

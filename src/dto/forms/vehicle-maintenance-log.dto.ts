@@ -40,12 +40,12 @@ export class VehMainDto {
     @ApiProperty({ example: 'damijo williams' })
     @IsString()
     @IsNotEmpty()
-    performed_by_name: string; // Manually entered performer name
+    performed_by_name: string; 
 
     @ApiProperty({ example: '64f5c8b7a3e7a8d7b6f5e4c3' })
     @IsMongoId()
     @IsNotEmpty()
-    performed_by_user: string; // Reference to a User (ObjectId)
+    performed_by_user: string; // Reference to a User id
 
     @ApiProperty({ example: 'Oil Change & Tire Rotation' })
     @IsString()
