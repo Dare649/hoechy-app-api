@@ -143,8 +143,7 @@ export class EmployeeActivityReportDto {
                 recovery_plan: "will go with my boss",
                 comment_remark: "this is a test",
                 approved_by: [
-                    { approval_name: "tayo adebayo", designation: "manager 2" },
-                    { approval_name: "jane smith", designation: "team lead" }
+                    { approval_name: "tayo adebayo", designation: "manager 2" }
                 ]
             }
         ],
