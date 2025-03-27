@@ -82,12 +82,7 @@ class TaskItemDto {
 }
 
 export class EmployeeActivityReportDto {
-    @ApiProperty({
-        example: "64f5c8b7a3e7a8d7b6f5e4c3",
-    })
-    @IsMongoId()
-    @IsNotEmpty()
-    performed_by_user: string;
+
 
     @ApiProperty({
         example: "dayo charles",
