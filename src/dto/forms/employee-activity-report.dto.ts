@@ -61,6 +61,20 @@ class TaskItemDto {
     @IsNotEmpty()
     comment_remark: string;
 
+    @ApiProperty({
+        type: [ApprovedByDto],
+        description: "List of approvals for the task",
+        example: [
+            {
+                approval_name: "tayo adebayo",
+                designation: "manager 2"
+            },
+            {
+                approval_name: "jane smith",
+                designation: "team lead"
+            }
+        ],
+    })
     @IsArray()
     @ValidateNested({ each: true })
     @Type(() => ApprovedByDto)
@@ -117,6 +131,24 @@ export class EmployeeActivityReportDto {
     @IsNotEmpty()
     week: string;
 
+    @ApiProperty({
+        type: [TaskItemDto],
+        description: "List of task items in the report",
+        example: [
+            {
+                description: "make sales",
+                responsibility_delegate: "john doe",
+                status: "ongoing",
+                challenges: "customers sending me back home",
+                recovery_plan: "will go with my boss",
+                comment_remark: "this is a test",
+                approved_by: [
+                    { approval_name: "tayo adebayo", designation: "manager 2" },
+                    { approval_name: "jane smith", designation: "team lead" }
+                ]
+            }
+        ],
+    })
     @IsArray()
     @ValidateNested({ each: true })
     @Type(() => TaskItemDto)
