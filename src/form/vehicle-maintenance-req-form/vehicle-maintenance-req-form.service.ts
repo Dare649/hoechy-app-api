@@ -37,10 +37,7 @@ export class VehicleMaintenanceReqFormService {
   // Update a vehicle maintenance request form
   async update_vehicle_maintenance_request_form(dto: VehMainReqDto, id: string) {
     try {
-      if (!isValidObjectId(id)) {
-        throw new BadRequestException('Invalid form ID');
-      }
-
+      
       const existing_veh_main_req = await this.veh_main_req_model.findById(id).exec();
 
       if (!existing_veh_main_req) {
@@ -48,12 +45,11 @@ export class VehicleMaintenanceReqFormService {
       }
 
       Object.assign(existing_veh_main_req, dto);
-      const updated_veh_main_req = await existing_veh_main_req.save();
+      await existing_veh_main_req.save();
 
       return {
         success: true,
         message: 'Form updated successfully!',
-        data: updated_veh_main_req,
       };
     } catch (error) {
       this.logger.error(`Error updating form: ${error.message}`);
@@ -62,12 +58,9 @@ export class VehicleMaintenanceReqFormService {
   }
 
   // Delete a vehicle maintenance request form
-  async delete_vehicle_maintenance_request_form(id: string): Promise<any> {
+  async delete_vehicle_maintenance_request_form(id: string) {
     try {
-      if (!isValidObjectId(id)) {
-        throw new BadRequestException('Invalid form ID');
-      }
-
+     
       const delete_veh_main_req = await this.veh_main_req_model.findByIdAndDelete(id).exec();
 
       if (!delete_veh_main_req) {
@@ -87,9 +80,6 @@ export class VehicleMaintenanceReqFormService {
   // Get a vehicle maintenance request form by ID
   async get_vehicle_maintenance_request_by_id(id: string): Promise<any> {
     try {
-      if (!isValidObjectId(id)) {
-        throw new BadRequestException('Invalid form ID');
-      }
 
       const veh_main_req = await this.veh_main_req_model.findById(id).exec();
 
@@ -119,19 +109,11 @@ async get_vehicle_maintenance_request(user: any) {
       } else if (user.role === Role.DRIVER) {
         // Driver can only fetch their own records
         veh_main_req = await this.veh_main_req_model.find({
-          performed_by_user: new Types.ObjectId(user._id),
-        }).exec();
+          performed_by_user: user._id.toString()}).exec();
       } else {
         throw new UnauthorizedException('You do not have access to this resource');
       }
   
-      if (!veh_main_req || veh_main_req.length === 0) {
-        return {
-          success: false,
-          message: 'No forms found for the specified user',
-          data: [],
-        };
-      }
   
       return {
         success: true,
