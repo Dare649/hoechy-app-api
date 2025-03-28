@@ -1,9 +1,17 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString, IsMongoId } from "class-validator";
 
 
 
 export class VehMovementRegDto {
+
+    @ApiProperty({
+            example: "64f5c8b7a3e7a8d7b6f5e4c3",
+    })
+    @IsMongoId()
+    @IsNotEmpty()
+    performed_by_user: string;
+
     @ApiProperty({
         example: '122OOD1'
     })

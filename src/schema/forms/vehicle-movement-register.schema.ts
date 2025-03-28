@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document } from "mongoose";
+import { Document, Types } from "mongoose";
+import { User } from "../user.schema";
 
 export type VehMoveRegDocument = VehMoveReg & Document;
 
@@ -7,6 +8,10 @@ export type VehMoveRegDocument = VehMoveReg & Document;
     timestamps: true
 })
 export class VehMoveReg {
+
+    @Prop({ required: true, type: Types.ObjectId, ref: 'User' })
+        performed_by_user: Types.ObjectId;
+
     @Prop({
         required: true,
     })
