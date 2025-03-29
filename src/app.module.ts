@@ -10,6 +10,7 @@ import { VehicleMovementRegisterModule } from './form/vehicle-movement-register/
 import { MonthlyChecklistModule } from './form/monthly-checklist/monthly-checklist.module';
 import { DailyInspectionModule } from './form/daily-inspection/daily-inspection.module';
 import { EmployeeActivityReportModule } from './form/employee-activity-report/employee-activity-report.module';
+import { DailySiteReportModule } from './form/daily-site-report/daily-site-report.module';
 
 
 @Module({
@@ -32,6 +33,7 @@ import { EmployeeActivityReportModule } from './form/employee-activity-report/em
     MonthlyChecklistModule,
     DailyInspectionModule,
     EmployeeActivityReportModule,
+    DailySiteReportModule,
   ],
   controllers: [],
   providers: [],
